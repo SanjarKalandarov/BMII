@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "php-mqtt/laravel-client": "^1.5",
+        "salmanzafar/laravel-mqtt": "^2.0",
         "spatie/laravel-permission": "^6.7"
     },
     "require-dev": {
