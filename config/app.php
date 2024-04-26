@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Salman\Mqtt\MqttServiceProvider::class,
+//        PhpMqtt\Client\Laravel\MqttClientServiceProvider::class,
     ])->toArray(),
 
     /*

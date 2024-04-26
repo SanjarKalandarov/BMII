@@ -20,7 +20,7 @@ class MqttController extends Controller
         try {
 
             $mqtt = new Mqtt(); // Mqtt klassi obyektini yaratish
-            $mqtt->ConnectAndPublish('topic', 'Test xabar', 'mqtt_citron', 'c1tr0nR&D');
+            $mqtt->ConnectAndPublish('test/topic', 'Test xabar', 'mqtt_citron', 'c1tr0nR&D');
             // MQTT serverga ulanish va xabar yuborish
             echo "MQTT server bilan muvaffaqiyatli bog'landi va xabar yuborildi.";
         } catch (\Exception $e) {

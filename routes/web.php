@@ -3,11 +3,9 @@
 use App\Http\Controllers\MqttController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use PhpMqtt\Client\MqttClient;
 use Salman\Mqtt\MqttClass\Mqtt;
-
 //use PhpMqtt\Client\Facades\MQTT;
-//use PhpMqtt\Client\MttClient;q
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,50 +24,38 @@ Route::get('/',function () {
     return view('dashboard');
 });
 
-//Route::get('/mqtt-connect', function () {
-//
-////    $mqtt = MQTT::connection();
-////    $mqtt->subscribe('some/topic', function (string $topic, string $message) {
-////        echo sprintf('Received QoS level 1 message on topic [%s]: %s', $topic, $message);
-////    }, 1);
-////    $mqtt->publish('some/topic', 'foo', 1);
-////    $mqtt->publish('some/other/topic', 'bar', 2, true); // Xabarni saqlab qo'yish
-////    $mqtt->loop(true);
+Route::get('/mqtt-connect', function () {
+
 //    try {
+//        // MQTT klientini hosil qilamiz
 //        $mqtt = new MqttClient('mqtt://195.158.8.44:1883');
+//
+//        // Ulanish sozlamalarini o'rnatamiz
 //        $connectionSettings = (new \PhpMqtt\Client\ConnectionSettings)
 //            ->setUsername("mqtt_citron")
-////            ->setConnectTimeout(3)
+////        ->setConnectTimeout(3)
 //            ->setPassword("c1tr0nR&D");
-//        $mqtt->connect($connectionSettings, true);
-//
-//        $mqtt->publish('topic', 'Test xabar');
-//        $mqtt->disconnect();
-//        echo "MQTT server bilan muvaffaqiyatli bog'landi va xabar yuborildiiiiiiiiiiiiiiiii.";
-//    } catch (\Exception $e) {
-//        echo "MQTT serverga bog'lanishda xatolik yuz berdi: " . $e->getMessage();
-//    }
-//
-//
-//
-//});
-
-//Route::get('/subscribe', function () {
-//    try {
-//        // MQTT obyektini yaratish
-//        $mqtt = new Mqtt();
 //
 //        // MQTT serverga ulanish
-//        $mqtt->ConnectAndSubscribe('topic', function ($topic, $message) {
-//            // Qabul qilingan xabarlar
-//            echo "Mavzu: $topic, Xabar: $message\n";
-//        }, 'mqtt_citron', 'c1tr0nR&D');
+//        $mqtt->connect($connectionSettings, true);
 //
-//        echo "MQTT serverga muvaffaqiyatli bog'landi va mavzu uchun subscribe qilindi.";
+//        // Xabarni yuboramiz
+//        $mqtt->publish('topic', 'Test xabar');
+//
+//        // Ulanishni to'xtatamiz
+//        $mqtt->disconnect();
+//
+//        // Xabaringiz yuborilganligi to'g'risida xabar chiqaramiz
+//        echo "MQTT server bilan muvaffaqiyatli bog'landi va xabar yuborildi.";
 //    } catch (\Exception $e) {
+//        // Xatolik yuz berishida xabar chiqaramiz
 //        echo "MQTT serverga bog'lanishda xatolik yuz berdi: " . $e->getMessage();
 //    }
-//});
+
+
+
+});
+
 //Route::get('/', function () {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
