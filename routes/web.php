@@ -20,6 +20,10 @@ use Salman\Mqtt\MqttClass\Mqtt;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+Route::get('/button',function (){
+    return view('button');
+});
+
 Route::get('/',function () {
     return view('dashboard');
 });
@@ -65,5 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';
