@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+Route::get('/button',function (){
+    return view('button');
+});
 
 Route::get('/', function () {
     return view('dashboard');
