@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,16 +15,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->truncate();
+        $user=User::create([
+            'name' =>'student',
+            'email' =>'student@gmail.com',
+            'email_verified_at' => now(),
+            'password' =>'student'
+        ])->assignRole('student');
 
-        // 10 ta foydalanuvchi qo'shish
-        for ($i = 0; $i < 10; $i++) {
-            DB::table('users')->insert([
-                'name' => 'User ' . ($i + 1),
-                'email' => 'user' . ($i + 1) . '@example.com',
-                'password' => Hash::make('password'),
 
-            ]);
-        }
+        $user=User::create([
+            'name' =>'teacher',
+            'email' =>'teacher@gmail.com',
+            'email_verified_at' => now(),
+            'password' =>'teacher'
+        ])->assignRole('teacher');
     }
 }
