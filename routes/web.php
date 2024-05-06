@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MqttController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use PhpMqtt\Client\MqttClient;
 use Salman\Mqtt\MqttClass\Mqtt;
@@ -20,50 +21,24 @@ use Salman\Mqtt\MqttClass\Mqtt;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::get('/button',function (){
-    return view('button');
-});
+//Route::get('/button',function (){
+//    return view('button');
+//});
 
 Route::get('/',function () {
-    return view('dashboard');
-});
+//    dd('salom');
+    return view('button');
 
-Route::get('/mqtt-connect', function () {
-
-//    try {
-//        // MQTT klientini hosil qilamiz
-//        $mqtt = new MqttClient('mqtt://195.158.8.44:1883');
-//
-//        // Ulanish sozlamalarini o'rnatamiz
-//        $connectionSettings = (new \PhpMqtt\Client\ConnectionSettings)
-//            ->setUsername("mqtt_citron")
-////        ->setConnectTimeout(3)
-//            ->setPassword("c1tr0nR&D");
-//
-//        // MQTT serverga ulanish
-//        $mqtt->connect($connectionSettings, true);
-//
-//        // Xabarni yuboramiz
-//        $mqtt->publish('topic', 'Test xabar');
-//
-//        // Ulanishni to'xtatamiz
-//        $mqtt->disconnect();
-//
-//        // Xabaringiz yuborilganligi to'g'risida xabar chiqaramiz
-//        echo "MQTT server bilan muvaffaqiyatli bog'landi va xabar yuborildi.";
-//    } catch (\Exception $e) {
-//        // Xatolik yuz berishida xabar chiqaramiz
-//        echo "MQTT serverga bog'lanishda xatolik yuz berdi: " . $e->getMessage();
-//    }
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
+//Route::get('/connect',[MqttController::class,'connect'])->middleware(['auth', 'verified']);
+Route::post('connect',[MqttController::class,'Connect'])->middleware(['auth', 'verified'])->name('connect_send');
 
-});
-
-//Route::get('/', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/connect',[MqttController::class,'connect'])->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/logout', function(){
+//    Auth::logout(); // Foydalanuvchini tizimdan chiqarish
+//    return redirect('/login');
+//})->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
