@@ -4,9 +4,11 @@ use App\Http\Controllers\MqttController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use PhpMqtt\Client\MqttClient;
 use Salman\Mqtt\MqttClass\Mqtt;
+
 //use PhpMqtt\Client\Facades\MQTT;
+//use PhpMqtt\Client\MttClient;q
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
