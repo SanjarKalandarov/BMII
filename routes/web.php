@@ -23,19 +23,44 @@ use Salman\Mqtt\MqttClass\Mqtt;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-//Route::get('/button',function (){
-//    return view('button');
-//});
+Route::get('/',function (){
+    return view('dashboard');
+})->middleware(['auth', 'verified']);
 
-Route::get('/',function () {
-//    dd('salom');
-    return view('button');
+Route::get('/button', [\App\Http\Controllers\Admin\UserController::class,'button'])->middleware(['auth', 'verified']);
 
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/admin',[\App\Http\Controllers\Admin\UserController::class,'admin'])->middleware(['auth', 'verified']);
+//
+//Route::get('/', function () {
+//    return view('admin.index');
+//})->middleware(['auth', 'role:admin'])->name('admin.index');
+
+Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function () {
+
+
+    Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class);
+    Route::post('role/{role}/permissions', [\App\Http\Controllers\Admin\RoleController::class, 'givePermission'])->name('role.permissions');
+    Route::delete('role/{role}/permissions/{permission}', [\App\Http\Controllers\Admin\RoleController::class, 'revokePermission'])->name('role.permissions.revoke');
+    Route::resource('permissions', \App\Http\Controllers\Admin\PermissionController::class);
+    Route::post('permissions/{permission}/roles', [\App\Http\Controllers\Admin\PermissionController::class, 'assignRole'])->name('permissions.roles');
+    Route::delete('permissions/{permission}/roles/{role}', [\App\Http\Controllers\Admin\PermissionController::class, 'removeRole'])->name('permissions.roles.remove');
+    Route::get('users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
+    Route::get('users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
+    Route::delete('users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('users/{user}/roles', [\App\Http\Controllers\Admin\UserController::class, 'assignRole'])->name('users.roles');
+    Route::delete('users/{user}/roles/{roles}', [\App\Http\Controllers\Admin\UserController::class, 'removeRole'])->name('users.roles.remove');
+    Route::post('users/{user}/permissions', [\App\Http\Controllers\Admin\UserController::class, 'assignPermissions'])->name('users.permissions');
+    Route::delete('users/{user}/permissions/{permissions}', [\App\Http\Controllers\Admin\UserController::class, 'removePermission'])->name('users.permission.remove');
+    Route::get('/create', [\App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
+
+// Store a newly created user in storage
+    Route::post('/users', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
+
+});
 
 
 //Route::get('/connect',[MqttController::class,'connected'])->middleware(['auth', 'verified'])->name('connect');
-Route::get('connect',[MqttController::class,'Connect'])->middleware(['auth', 'verified'])->name('connect_send');
+Route::get('connect', [MqttController::class, 'Connect'])->middleware(['auth', 'verified'])->name('connect_send');
 Route::get('/send-zero-message', [MqttController::class, 'sendZeroMessage'])->name('send.zero.message');
 
 //Route::get('/logout', function(){
@@ -49,5 +74,4 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
