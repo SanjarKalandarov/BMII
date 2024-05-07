@@ -32,8 +32,9 @@ Route::get('/',function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-//Route::get('/connect',[MqttController::class,'connect'])->middleware(['auth', 'verified']);
-Route::post('connect',[MqttController::class,'Connect'])->middleware(['auth', 'verified'])->name('connect_send');
+//Route::get('/connect',[MqttController::class,'connected'])->middleware(['auth', 'verified'])->name('connect');
+Route::get('connect',[MqttController::class,'Connect'])->middleware(['auth', 'verified'])->name('connect_send');
+Route::get('/send-zero-message', [MqttController::class, 'sendZeroMessage'])->name('send.zero.message');
 
 //Route::get('/logout', function(){
 //    Auth::logout(); // Foydalanuvchini tizimdan chiqarish

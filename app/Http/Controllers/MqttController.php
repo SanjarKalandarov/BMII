@@ -11,70 +11,72 @@ use Salman\Mqtt\MqttClass\Mqtt;
 
 class MqttController extends Controller
 {
-    public function Connect(Request $request){
-        $isPressed = $request->session()->get('isPressed', false);
+    public function Connect()
+    {
+
         $user = Auth::user();
-        if ($user->getRoleNames()[0] == 'student') {
-            $startHour = 16;
-            $endHour = 17;
-            $currentHour = now()->hour;
-            if ($currentHour >= $startHour && $currentHour < $endHour) {
-                if (!$isPressed) {
-                    try {
-                        $mqtt = new Mqtt();
-                        $mqtt->ConnectAndPublish('Rahim121russ', '1', 'mqtt_citron', 'c1tr0nR&D');
-                    } catch (\Exception $e) {
-                        return response()->json(['error' => 'MQTT serverga bog\'lanishda xatolik yuz berdi: ' . $e->getMessage()]);
-                    }
-                    $request->session()->put('isPressed', true);
-                } else {
-                    // Agar tugma avval bosilgan bo'lsa, '0' yuborish
-                    try {
-                        $mqtt = new Mqtt();
-                        $mqtt->ConnectAndPublish('Rahim121russ', '0', 'mqtt_citron', 'c1tr0nR&D');
-                    } catch (\Exception $e) {
-                        // Xatolikni qaytarish
-                        return response()->json(['error' => 'MQTT serverga bog\'lanishda xatolik yuz berdi: ' . $e->getMessage()]);
-                    }
-                }
+        $startHour = 8;
+        $endHour = 17;
+        $currentHour = now()->hour;
+        if ($user->getRoleNames()[0] == 'student' && $currentHour >= $startHour && $currentHour < $endHour) {
 
-                // Ma'lumot yuborishdan so'ng qaytish
-                return redirect()->back();
-            } else {
-              return redirect()->back()->with('message','Siz bu vaqtda kira olmaysiz');
-
+            try {
+                $mqtt = new Mqtt();
+                $mqtt->ConnectAndPublish('Rahim121rus', '1', 'mqtt_citron', 'c1tr0nR&D');
+                return response()->json(['success' => 'Message 1 sent successfully']);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to send message 1 to MQTT server: ' . $e->getMessage()]);
             }
-        } elseif ($user->getRoleNames()[0] === 'teacher') {
-            if (!$isPressed) {
-                // Agar tugma avval bosilmagan bo'lsa, '1' yuborish
-                try {
-                    $mqtt = new Mqtt();
-                    $mqtt->ConnectAndPublish('Rahim121russ', '1', 'mqtt_citron', 'c1tr0nR&D');
-                } catch (\Exception $e) {
-                    // Xatolikni qaytarish
-                    return response()->json(['error' => 'MQTT serverga bog\'lanishda xatolik yuz berdi: ' . $e->getMessage()]);
-                }
+        }
+        else if ($user->getRoleNames()[0] == 'teacher') {
 
-                // Tugma bosilganini belgilash
-                $request->session()->put('isPressed', true);
-            } else {
-                // Agar tugma avval bosilgan bo'lsa, '0' yuborish
-                try {
-                    $mqtt = new Mqtt();
-                    $mqtt->ConnectAndPublish('Rahim121russ', '0', 'mqtt_citron', 'c1tr0nR&D');
-                } catch (\Exception $e) {
-                    // Xatolikni qaytarish
-                    return response()->json(['error' => 'MQTT serverga bog\'lanishda xatolik yuz berdi: ' . $e->getMessage()]);
-                }
+            try {
+                $mqtt = new Mqtt();
+                $mqtt->ConnectAndPublish('Rahim121rus', '1', 'mqtt_citron', 'c1tr0nR&D');
+                return response()->json(['success' => 'Message 1 sent successfully']);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to send message 1 to MQTT server: ' . $e->getMessage()]);
             }
+        }
+        else {
+//            return 'salom';
+            return response()->json(['success' => 'kira olmaysan']);
 
-            // Ma'lumot yuborishdan so'ng qaytish
-            return redirect()->back();
         }
 
 
 
     }
+
+    public function sendZeroMessage()
+    {
+        try {
+            $mqtt = new Mqtt();
+            $mqtt->ConnectAndPublish('Rahim121rus', 0, 'mqtt_citron', 'c1tr0nR&D');
+            return response()->json(['success' => 'Message 0 sent successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to send message 0 to MQTT server: ' . $e->getMessage()]);
+        }
+    }
+
+//    public function connected()
+//    {
+//        try {
+//            // Ma'lumotlarni qabul qilish
+//
+//            // MQTT ulanuvchisini yaratish
+//            $mqtt = new Mqtt();
+//
+//                // MQTT ulanuvchisi ochiladi
+//                $mqtt->ConnectAndPublish('Rahim121rus', '1', 'mqtt_citron', 'c1tr0nR&D');
+////
+//        } catch (\Exception $e) {
+//            // Xatolikni qaytarish
+//            return response()->json(['error' => 'MQTT serverga bog\'lanishda xatolik yuz berdi: ' . $e->getMessage()]);
+//        }
+//    }
+
+
 
 
 
