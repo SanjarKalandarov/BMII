@@ -4,109 +4,73 @@
     <meta charset="UTF-8">
     <title>Dumaloq Button</title>
     <style>
-{{--        body{--}}
-{{--            text-align:center;--}}
-{{--            background-color:#ffcc8e;--}}
-{{--        }--}}
+        .center {
+            text-align: center;
+        }
 
-{{--        .button{--}}
-{{--            position:relative;--}}
-{{--            display:inline-block;--}}
-{{--            margin:20px;--}}
-{{--        }--}}
+        h2.center {
+            margin-top: 0;
+        }
 
-{{--        .button a{--}}
-{{--            color:white;--}}
-{{--            font-family:Helvetica, sans-serif;--}}
-{{--            font-weight:bold;--}}
-{{--            font-size:36px;--}}
-{{--            text-align: center;--}}
-{{--            text-decoration:none;--}}
-{{--            background-color:#FFA12B;--}}
-{{--            display:block;--}}
-{{--            position:relative;--}}
-{{--            padding:20px 40px;--}}
+        #mqttForm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ekranning to'liq balandligini egallaydi */
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Orqa fon rangi */
+        }
 
-{{--            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);--}}
-{{--            text-shadow: 0px 1px 0px #000;--}}
-{{--            filter: dropshadow(color=#000, offx=0px, offy=1px);--}}
+        #mqttButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            /* 3D effekt uchun */
+            transform: perspective(1px) translateZ(0);
+            box-shadow: 0 0 1px transparent;
+        }
 
-{{--            -webkit-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;--}}
-{{--            -moz-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;--}}
-{{--            box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;--}}
+        #mqttButton:before {
+            content: '';
+            position: absolute;
+            border: 10px solid #0056b3;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            border-radius: 5px;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform 0.3s ease-out;
+        }
 
-{{--            -webkit-border-radius: 5px;--}}
-{{--            -moz-border-radius: 5px;--}}
-{{--            border-radius: 5px;--}}
-{{--        }--}}
+        #mqttButton:hover, #mqttButton:focus, #mqttButton:active {
+            background-color: #0056b3;
+            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
+            /* 3D effekt uchun */
+            transform: scale(1.05);
+        }
 
-{{--        .button a:active{--}}
-{{--            top:10px;--}}
-{{--            background-color:#F78900;--}}
+        #mqttButton:hover:before, #mqttButton:focus:before, #mqttButton:active:before {
+            transform: scaleX(1);
+        }
 
-{{--            -webkit-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;--}}
-{{--            -moz-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3pxpx 0 #915100;--}}
-{{--            box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;--}}
-{{--        }--}}
+        /* Media so'rovlar yordamida tugmani turli ekran o'lchamlariga moslashtirish */
+        @media (max-width: 768px) {
+            #mqttButton {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
 
-{{--        .button:after{--}}
-{{--            content:"";--}}
-{{--            height:100%;--}}
-{{--            width:100%;--}}
-{{--            padding:4px;--}}
-{{--            position: absolute;--}}
-{{--            bottom:-15px;--}}
-{{--            left:-4px;--}}
-{{--            z-index:-1;--}}
-{{--            background-color:#2B1800;--}}
-{{--            -webkit-border-radius: 5px;--}}
-{{--            -moz-border-radius: 5px;--}}
-{{--            border-radius: 5px;--}}
-{{--        }--}}
-
-{{--    </style>--}}
-
-    .pushable {
-    position: relative;
-    background: transparent;
-    padding: 0px;
-    border: none;
-    cursor: pointer;
-    outline-offset: 4px;
-    outline-color: deeppink;
-    transition: filter 250ms;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-
-    .shadow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: hsl(226, 25%, 69%);
-    border-radius: 8px;
-    filter: blur(2px);
-    will-change: transform;
-    transform: translateY(2px);
-    transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
-    }
-
-    .edge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 8px;
-    background: linear-gradient(
-    to right,
-    hsl(248, 39%, 39%) 0%,
-    hsl(248, 39%, 49%) 8%,
-    hsl(248, 39%, 39%) 92%,
-    hsl(248, 39%, 29%) 100%
-    );
-    }
 
     .front {
     display: block;
@@ -125,66 +89,176 @@
     transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
     }
 
-    .pushable:hover {
-    filter: brightness(110%);
+    #mqttForm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height:90vh; /* Ekranning to'liq balandligini egallaydi */
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7; /* Orqa fon rangi */
     }
 
-    .pushable:hover .front {
-    transform: translateY(-6px);
-    transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+    #mqttButton {
+        padding: 20px 30px;
+        font-size: 20px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
     }
 
-    .pushable:active .front {
-    transform: translateY(-2px);
-    transition: transform 34ms;
+    #mqttButton:hover {
+        background-color: #0056b3;
+        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
     }
+    .row{
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-bottom: 20px;
+    }
+    /* Media so'rovlar yordamida tugmani turli ekran o'lchamlariga moslashtirish */
+    @media (max-width: 768px) {
+        #mqttButton {
+            padding: 15px 20px;
+            font-size: 14px;
+        }
+    }
+*{
+    margin: 0;
+    padding: 0;
 
-    .pushable:hover .shadow {
-    transform: translateY(4px);
-    transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-    }
 
-    .pushable:active .shadow {
-    transform: translateY(1px);
-    transition: transform 34ms;
-    }
+}
 
-    .pushable:focus:not(:focus-visible) {
-    outline: none;
-    }
+      body ,.row {
+          /*border-top: 50px solid blue;*/
+          /*border: 50px solid blue;*/
+          overflow: hidden;
+
+        }
+
+        @media (max-width: 768px) {
+            .justify-content-center {
+                flex-direction: column;
+            }
+        }
+
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 
 
-{{--    <input type="hidden" value="1" name="action">--}}
-{{--    <button type="submit" class="button" id="myButton">Bos!</button>--}}
+{{--<form method="POST" action="{{ route('logout') }}">--}}
+{{--    @csrf--}}
 
-{{--    <div ontouchstart="">--}}
-{{--        <div class="button">--}}
-{{--            <a href="#">Mobile First</a>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+{{--    <x-dropdown-link :href="route('logout')"--}}
+{{--                     onclick="event.preventDefault();--}}
+{{--                                                this.closest('form').submit();">--}}
+{{--        {{ __('Log Out') }}--}}
+{{--    </x-dropdown-link>--}}
+{{--</form>--}}
+<main>
 
-<div class="center">
-<h2 class="center">Xush kelibsiz</h2>
-</div>
+<section>
 
-<form id="mqttForm" action="{{ route('connect_send') }}" method="post">
-    @csrf
-<button class="pushable" >
-    <span class="shadow"></span>
-    <span class="edge"></span>
+    <form id="mqttForm" class="">
 
-    <button class="front">
-        Push Me
-      </button>
+        @csrf
+        <button type="button"  class="front" id="mqttButton">Ochish</button>
+    </form>
 
-</button>
-</form>
+    <div class="row">
+        <div class="col-md-6" >
+            <div class="justify-content-center " style="text-align: center;">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
 
+                    <x-responsive-nav-link :href="route('logout')"
+                                           onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        <i class="fa fa-sign-out" style="color: black;font-size: 100px;margin-top:30px;"></i>
+                    </x-responsive-nav-link>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6" >
+            <div class="justify-content-center" style="text-align: center" >
+
+                <a href="{{route('profile.edit')}}">   <i class="fa fa-user" style="color: black;font-size: 100px;margin-top:30px" ></i></a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+</main>
 <script>
 
+    $(document).ready(function() {
+        var intervalId; // Aralık kimliği için değişken
+
+        // Düğmeye tıklandığında
+        $('#mqttButton').click(function() {
+            // Xabar '1'ni MQTT ga yuborish
+            $.ajax({
+                url: "{{ route('connect_send') }}", // Laravel route for sending message '1'
+                type: "GET",
+                data: $('#mqttForm').serialize(),
+                success: function(response) {
+                    console.log(response); // Controllerdan gelen yanıtı konsola yazdırma
+
+                    // Daha önce başlatılmış bir aralık varsa, önceki aralığı temizle
+                    if (intervalId) clearInterval(intervalId);
+
+                    // 30 saniye sonra bir '0' mesajı gönder
+                    intervalId = setInterval(function() {
+                        sendZeroMessage();
+                    }, 30000); // 30 saniye = 30000 milisaniye
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        // '0' mesajı gönderme fonksiyonu
+        function sendZeroMessage() {
+            $.ajax({
+                url: "{{ route('send.zero.message') }}", // Laravel route for sending message '0'
+                type: "GET",
+                data: $('#mqttForm').serialize(),
+                success: function(response) {
+                    console.log(response); // Controllerdan gelen yanıtı konsola yazdırma
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    });
+    // Foydalanuvchi sahifani yuklagandan so'ng 30 sekund o'tgandan so'ng oturishni yakunlash
+    {{--document.addEventListener('DOMContentLoaded', function() {--}}
+    {{--    setTimeout(function() {--}}
+    {{--        // Oturishni yakunlash--}}
+    {{--        window.location.href = '{{ route("logout") }}';--}}
+    {{--    }, 30000); // 30,000 millyon ikki soniya (30 sekund)--}}
+    {{--});--}}
     // Foydalanuvchi sahifani yuklagandan so'ng 30 sekund o'tgandan so'ng oturishni yakunlash
     {{--document.addEventListener('DOMContentLoaded', function() {--}}
     {{--    setTimeout(function() {--}}

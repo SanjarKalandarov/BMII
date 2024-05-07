@@ -15,7 +15,7 @@ class MqttController extends Controller
     {
 
         $user = Auth::user();
-        $startHour = 8;
+        $startHour = 15;
         $endHour = 17;
         $currentHour = now()->hour;
         if ($user->getRoleNames()[0] == 'student' && $currentHour >= $startHour && $currentHour < $endHour) {
@@ -40,7 +40,7 @@ class MqttController extends Controller
         }
         else {
 //            return 'salom';
-            return response()->json(['success' => 'kira olmaysan']);
+            return redirect()->route('button')->with('success','kira olmayszi');
 
         }
 
