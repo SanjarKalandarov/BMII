@@ -23,9 +23,10 @@ Route::get('/',function (){
     return view('dashboard');
 })->middleware(['auth', 'verified']);
 
-Route::get('/button', [\App\Http\Controllers\Admin\UserController::class,'button'])->middleware(['auth', 'verified']);
+Route::get('/button', [\App\Http\Controllers\Admin\UserController::class,'button'])->middleware(['auth', 'verified'])->name('button');
+//Route::get('/', [\App\Http\Controllers\Admin\UserController::class,'button'])->middleware(['auth', 'verified']);
 
-Route::get('/admin',[\App\Http\Controllers\Admin\UserController::class,'admin'])->middleware(['auth', 'verified']);
+Route::get('/admin',[\App\Http\Controllers\Admin\UserController::class,'admin'])->middleware(['auth', 'verified'])->name('admin');
 Route::post('/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 //Route::get('/', function () {
