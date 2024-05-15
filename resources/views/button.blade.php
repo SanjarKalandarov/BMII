@@ -89,14 +89,8 @@
     transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
     }
 
-    #mqttForm {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height:90vh; /* Ekranning to'liq balandligini egallaydi */
-        margin: 0;
-        padding: 0;
-        background-color: #f7f7f7; /* Orqa fon rangi */
+    .pushable:hover {
+    filter: brightness(110%);
     }
 
     #mqttButton {
@@ -144,12 +138,9 @@
 
         }
 
-        @media (max-width: 768px) {
-            .justify-content-center {
-                flex-direction: column;
-            }
-        }
-
+    .pushable:focus:not(:focus-visible) {
+    outline: none;
+    }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
