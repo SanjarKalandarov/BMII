@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dumaloq Button</title>
+    <title>Citron Door</title>
     <style>
         .center {
             text-align: center;
@@ -167,7 +167,7 @@
     <form id="mqttForm" class="">
 
         @csrf
-        <button type="button"  class="front" id="mqttButton">Ochish</button>
+        <button type="button"  class="front" id="mqttButton">Open</button>
     </form>
 
     <div class="row">
