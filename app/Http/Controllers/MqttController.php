@@ -15,8 +15,8 @@ class MqttController extends Controller
     {
 
         $user = Auth::user();
-        $startHour = 15;
-        $endHour = 17;
+        $startHour = 8;
+        $endHour = 19;
         $currentHour = now()->hour;
         if ($user->getRoleNames()[0] == 'student' && $currentHour >= $startHour && $currentHour < $endHour) {
 
@@ -52,7 +52,7 @@ class MqttController extends Controller
     {
         try {
             $mqtt = new Mqtt();
-            $mqtt->ConnectAndPublish('Rahim121rus', 0, 'mqtt_citron', 'c1tr0nR&D');
+            $mqtt->ConnectAndPublish('Rahim121rus', '0', 'mqtt_citron', 'c1tr0nR&D');
             return response()->json(['success' => 'Message 0 sent successfully']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to send message 0 to MQTT server: ' . $e->getMessage()]);
