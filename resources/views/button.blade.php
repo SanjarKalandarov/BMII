@@ -179,7 +179,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                                            onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        <i class="fa fa-sign-out" style="color: black;font-size: 100px;margin-top:30px;"></i>
+                        <i class="fa fa-sign-out" style="color: black;font-size: 70px;margin-top:30px;"></i>
                     </x-responsive-nav-link>
                 </form>
             </div>
@@ -187,7 +187,7 @@
         <div class="col-md-6" >
             <div class="justify-content-center" style="text-align: center" >
 
-                <a href="{{route('profile.edit')}}">   <i class="fa fa-user" style="color: black;font-size: 100px;margin-top:30px" ></i></a>
+                <a href="{{route('profile.edit')}}">   <i class="fa fa-user" style="color: black;font-size: 70px;margin-top:30px" ></i></a>
             </div>
         </div>
     </div>
