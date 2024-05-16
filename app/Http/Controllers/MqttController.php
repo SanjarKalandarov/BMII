@@ -16,16 +16,17 @@ class MqttController extends Controller
 
         $user = Auth::user();
         $startHour = 8;
-        $endHour = 19;
+        $endHour = 17;
         $currentHour = now()->hour;
         if ($user->getRoleNames()[0] == 'student' && $currentHour >= $startHour && $currentHour < $endHour) {
 
             try {
                 $mqtt = new Mqtt();
                 $mqtt->ConnectAndPublish('Rahim121rus', '1', 'mqtt_citron', 'c1tr0nR&D');
-                return response()->json(['success' => 'Message 1 sent successfully']);
+                return response()->json(['status' => 'success', 'message' => 'Eshik ochildi!']);
+
             } catch (\Exception $e) {
-                return response()->json(['error' => 'Failed to send message 1 to MQTT server: ' . $e->getMessage()]);
+                return response()->json(['status' => 'error', 'message' => 'MQTT serveriga 1-xabar yuborilmadi: ' . $e->getMessage()]);
             }
         }
         else if ($user->getRoleNames()[0] == 'teacher') {
@@ -33,14 +34,15 @@ class MqttController extends Controller
             try {
                 $mqtt = new Mqtt();
                 $mqtt->ConnectAndPublish('Rahim121rus', '1', 'mqtt_citron', 'c1tr0nR&D');
-                return response()->json(['success' => 'Message 1 sent successfully']);
+                return response()->json(['status' => 'success', 'message' => 'Eshik ochildi!']);
             } catch (\Exception $e) {
-                return response()->json(['error' => 'Failed to send message 1 to MQTT server: ' . $e->getMessage()]);
+                return response()->json(['status' => 'error', 'message' => 'MQTT serveriga 1-xabar yuborilmadi: ' . $e->getMessage()]);
             }
         }
         else {
 //            return 'salom';
-            return redirect()->route('button')->with('success','kira olmayszi');
+            return response()->json(['status' => 'error', 'message' => 'Siz faqa 8 va 17 gacha kira olasiz!']);
+
 
         }
 
@@ -53,9 +55,9 @@ class MqttController extends Controller
         try {
             $mqtt = new Mqtt();
             $mqtt->ConnectAndPublish('Rahim121rus', '0', 'mqtt_citron', 'c1tr0nR&D');
-            return response()->json(['success' => 'Message 0 sent successfully']);
+            return response()->json(['success','Eshik Yopildi']);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to send message 0 to MQTT server: ' . $e->getMessage()]);
+            return response()->json(['error','MQTT serveriga 0-xabar yuborilmadi: ' . $e->getMessage()]);
         }
     }
 

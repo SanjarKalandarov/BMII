@@ -138,28 +138,62 @@
 
         }
 
-    .pushable:focus:not(:focus-visible) {
-    outline: none;
-    }
+        body {
+            margin: 0 0 55px 0;
+        }
+
+        .nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 55px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .nav__link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            min-width: 50px;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: sans-serif;
+            font-size: 13px;
+            color: #444444;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.1s ease-in-out;
+        }
+
+        .nav__link:hover {
+            background-color: #eeeeee;
+        }
+
+        .nav__link--active {
+            color: #009578;
+        }
+
+        .nav__icon {
+            font-size: 18px;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
 
 
-{{--<form method="POST" action="{{ route('logout') }}">--}}
-{{--    @csrf--}}
 
-{{--    <x-dropdown-link :href="route('logout')"--}}
-{{--                     onclick="event.preventDefault();--}}
-{{--                                                this.closest('form').submit();">--}}
-{{--        {{ __('Log Out') }}--}}
-{{--    </x-dropdown-link>--}}
-{{--</form>--}}
 <main>
 
 <section>
@@ -169,28 +203,37 @@
         @csrf
         <button type="button"  class="front" id="mqttButton">Open</button>
     </form>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Siz',
+                text: '{{ session('success') }}'
+            });
+        </script>
+    @endif
 
-    <div class="row">
-        <div class="col-md-6" >
-            <div class="justify-content-center " style="text-align: center;">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+    <nav class="nav">
+        <a href="{{route('button')}}" class="nav__link {{ request()->routeIs('button') ? 'nav__link--active' : '' }}">
+            <i class="material-icons nav__icon">lock</i>
+            <span class="nav__text">Settings</span>
+        </a>
+        <a href="{{route('profile.edit')}}" class="nav__link {{ request()->routeIs('profile.edit') ? 'nav__link--active' : '' }}">
+            <i class="material-icons ">person</i>
+            <span class="nav__text">Profile</span>
+        </a>
 
-                    <x-responsive-nav-link :href="route('logout')"
-                                           onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        <i class="fa fa-sign-out" style="color: black;font-size: 100px;margin-top:30px;"></i>
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-        </div>
-        <div class="col-md-6" >
-            <div class="justify-content-center" style="text-align: center" >
 
-                <a href="{{route('profile.edit')}}">   <i class="fa fa-user" style="color: black;font-size: 100px;margin-top:30px" ></i></a>
-            </div>
-        </div>
-    </div>
+        <a href="{{ route('logout') }}" class="nav__link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="material-icons">exit_to_app</i>
+            <span class="nav__text">Logout</span>
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+
+    </nav>
 
 </section>
 
@@ -199,8 +242,32 @@
 
 
 </main>
+
 <script>
 
+    $(document).ready(function() {
+        $('#mqttButton').on('click', function() {
+            $.ajax({
+                url: '{{ route('connect_send') }}',
+                type: 'GET',
+                success: function(data) {
+                  // console.log(data[0] === "success");
+                    Swal.fire({
+                        icon: data['status'] === 'success' ? 'success' : 'error',
+                        title: data['status'] === 'success' ? 'Muvaffaqiyatli' : 'Kechirasiz',
+                        text: data['message']
+                    });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Kechirasiz',
+                        text: 'So\'rov amalga oshirilmadi: ' + errorThrown
+                    });
+                }
+            });
+        });
+    });
     $(document).ready(function() {
         var intervalId; // Aralık kimliği için değişken
 
@@ -212,7 +279,7 @@
                 type: "GET",
                 data: $('#mqttForm').serialize(),
                 success: function(response) {
-                    console.log(response); // Controllerdan gelen yanıtı konsola yazdırma
+                    // console.log(response); // Controllerdan gelen yanıtı konsola yazdırma
 
                     // Daha önce başlatılmış bir aralık varsa, önceki aralığı temizle
                     if (intervalId) clearInterval(intervalId);

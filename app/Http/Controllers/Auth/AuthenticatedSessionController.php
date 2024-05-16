@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
         if (Auth::user()->getRoleNames()[0] == 'student' || auth()->user()->getRoleNames()[0] == 'teacher') {
-            return redirect(route('button'));
+            return redirect(route('button'))->with('success','Muvaffiqiyatli kirdingiz!');
         } elseif (Auth::user()->getRoleNames()[0] == 'admin') {
             return redirect(route('admin'));
         }

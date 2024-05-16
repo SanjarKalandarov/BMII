@@ -86,4 +86,25 @@
 
         </div>
     </div>
+    <nav class="nav">
+        <a href="{{route('button')}}" class="nav__link {{ request()->routeIs('button') ? 'nav__link--active' : '' }}">
+            <i class="material-icons nav__icon">settings</i>
+            <span class="nav__text">Settings</span>
+        </a>
+        <a href="{{route('profile.edit')}}" class="nav__link {{ request()->routeIs('profile.edit') ? 'nav__link--active' : '' }}">
+            <i class="material-icons ">person</i>
+            <span class="nav__text">Profile</span>
+        </a>
+
+
+        <a href="{{ route('logout') }}" class="nav__link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="material-icons">exit_to_app</i>
+            <span class="nav__text">Chiqish</span>
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+
+    </nav>
 </x-app-layout>
