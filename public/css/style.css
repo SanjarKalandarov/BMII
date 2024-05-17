@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons+Outlined");
+
+:root {
+    --accent-color: #1fa8f5;
+    --accent-color-fg: #fefefe;
+    --backdrop-color: #89d4fe;
+    --app-content-background-color: #c0d8ec;
+    --inset-shadow: rgba(7, 43, 74, 0.3);
+    --outset-shadow: rgba(223, 240, 255, 0.25);
+    --clay-box-shadow: rgba(7, 43, 74, 0.3);
+    --clay-background-color: #c0d8ec;
+    --clay-fg-color: #444;
+}
+
+body {
+    background-color: var(--backdrop-color);
+    font-size: 10px;
+    font-family: "Roboto", sans-serif;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.container {
+    padding: 1rem 1rem 1.5rem;
+}
+
+.stage {
+    max-width: 400px;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.home.active {
+    color: var(--accent-color);
+}
+.home-style {
+    --app-content-background-color: #c0d8ec;
+}
+
+
+
+.help.active {
+    --outset-shadow: rgba(230, 230, 230, 0.45);
+    --inset-shadow: rgba(81, 81, 81, 0.45);
+    --clay-box-shadow: rgba(81, 81, 81, 0.4);
+    --clay-background-color: #a3a3a3;
+    --clay-fg-color: #f1f2f3;
+    color: #783896;
+}
+.help-style {
+    --app-content-background-color: #a3a3a3;
+}
+
+.tabbar {
+    background-color: var(--app-content-background-color);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: content-box;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.4s;
+}
+.tabbar ul,
+.tabbar li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.tabbar ul {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f9f8fa;
+    align-self: flex-end;
+    justify-content: center;
+    height: 50px;
+}
+.tabbar li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    margin-right: 5px;
+    transition: all 0.4s;
+    background-color: #f9f8fa;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    color: #888;
+    cursor: pointer;
+}
+.tabbar li:last-child {
+    margin-right: 0;
+}
+
+
+.tab-style4 li {
+    width: 60px;
+    height: 40px;
+    flex-direction: column;
+    overflow: hidden;
+}
+.tab-style4 li span {
+    position: relative;
+    top: 3px;
+    transition: top 0.4s ease-out, font-size 0.2s ease-out;
+    text-shadow: inset 2px 2px 4px var(--clay-box-shadow);
+}
+.tab-style4 li:after {
+    width: 100%;
+    height: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 8px;
+    font-weight: bold;
+    position: relative;
+    bottom: -30px;
+    opacity: 0;
+    transition: bottom 0.2s ease-out, opacity 0.4s ease-out;
+}
+.tab-style4 li.active:after {
+    opacity: 1;
+    bottom: 2px;
+    text-shadow: inset 2px 2px 8px var(--clay-box-shadow);
+}
+.tab-style4 li:nth-child(1):after {
+    content: "home";
+}
+.tab-style4 li:nth-child(2):after {
+    content: "products";
+}
+.tab-style4 li:nth-child(3):after {
+    content: "services";
+}
+.tab-style4 li:nth-child(4):after {
+    content: "company";
+}
+.tab-style4 li:nth-child(5):after {
+    content: "help";
+}
+.tab-style4 .active span {
+    font-size: 1.1rem;
+    top: -4px;
+}
