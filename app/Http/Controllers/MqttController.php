@@ -54,7 +54,7 @@ class MqttController extends Controller
     {
         try {
             $mqtt = new Mqtt();
-            $mqtt->ConnectAndPublish('Rahim121rus', '0', 'mqtt_citron', 'c1tr0nR&D');
+            $mqtt->ConnectAndPublish('Rahim121rus', '1', 'mqtt_citron', 'c1tr0nR&D');
             return response()->json(['success','Eshik Yopildi']);
         } catch (\Exception $e) {
             return response()->json(['error','MQTT serveriga 0-xabar yuborilmadi: ' . $e->getMessage()]);
