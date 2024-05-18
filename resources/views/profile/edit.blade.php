@@ -5,9 +5,9 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+    <div class="py-12 " >
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 ">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg" style="display: none">
                 <div class="max-w-xl">
                     <section>
                         <header>
@@ -75,7 +75,7 @@
                     </section>
 
                 </div>
-            </div>
+            </div  >
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
@@ -89,7 +89,7 @@
     <nav class="nav">
         <a href="{{route('button')}}" class="nav__link {{ request()->routeIs('button') ? 'nav__link--active' : '' }}">
             <i class="material-icons nav__icon">settings</i>
-            <span class="nav__text">Settings</span>
+            <span class="nav__text">Home</span>
         </a>
         <a href="{{route('profile.edit')}}" class="nav__link {{ request()->routeIs('profile.edit') ? 'nav__link--active' : '' }}">
             <i class="material-icons ">person</i>

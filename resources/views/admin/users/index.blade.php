@@ -41,21 +41,21 @@
                      </div>
                  </td>
 
-{{--                 <td>--}}
-{{--                     <div class="d-flex align-items-center">--}}
-{{--                         <div class="ms-3 d-flex">--}}
-{{--                             <a href="{{route('admin.users.show',$role)}}" class="btn btn-success m-1" >ROle</a>--}}
+                 <td>
+                     <div class="d-flex align-items-center">
+                         <div class="ms-3 d-flex">
+                             <a href="{{route('admin.users.show',$role)}}" class="btn btn-success m-1" >Role</a>
 {{--                             <a href="" class="btn btn-info m-1" >Permission</a>--}}
 
-{{--                             <form action="{{route('admin.users.destroy',$role->id)}}" method="post" class="m-1" onsubmit="return confirm('Rosdanham ochirmoqchimisiz ?')">--}}
-{{--                                 @csrf--}}
-{{--                                 @method('DELETE')--}}
-{{--                                 <button type="submit" class="btn btn-danger bg-black" style="background-color: red"><i class="fas fa-trash"></i></button>--}}
+                             <form action="{{route('admin.users.destroy',$role->id)}}" method="post" class="m-1" onsubmit="return confirm('Rosdanham ochirmoqchimisiz ?')">
+                                 @csrf
+                                 @method('DELETE')
+                                 <button type="submit" class="btn btn-danger bg-black" style="background-color: red"><i class="fas fa-trash"></i></button>
 
-{{--                             </form>--}}
-{{--                         </div>--}}
-{{--                     </div>--}}
-{{--                 </td>--}}
+                             </form>
+                         </div>
+                     </div>
+                 </td>
              </tr>
 
          @endforeach
