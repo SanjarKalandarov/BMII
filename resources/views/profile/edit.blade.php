@@ -88,7 +88,7 @@
     </div>
     <nav class="nav">
         <a href="{{route('button')}}" class="nav__link {{ request()->routeIs('button') ? 'nav__link--active' : '' }}">
-            <i class="material-icons nav__icon">settings</i>
+            <i class="material-icons nav__icon">lock</i>
             <span class="nav__text">Home</span>
         </a>
         <a href="{{route('profile.edit')}}" class="nav__link {{ request()->routeIs('profile.edit') ? 'nav__link--active' : '' }}">

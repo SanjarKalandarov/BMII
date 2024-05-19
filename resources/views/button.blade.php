@@ -72,69 +72,69 @@
         }
 
 
-    .front {
-    display: block;
-    position: relative;
-    border-radius: 8px;
-    background: hsl(248, 53%, 58%);
-    padding: 16px 32px;
-    color: white;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-size: 1rem;
-    transform: translateY(-4px);
-    transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
-    }
-
-    .pushable:hover {
-    filter: brightness(110%);
-    }
-
-    #mqttButton {
-        padding: 20px 30px;
-        font-size: 20px;
-        color: #fff;
-        background-color: #007bff;
-        border: none;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    #mqttButton:hover {
-        background-color: #0056b3;
-        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
-    }
-    .row{
-        position: absolute;
-        bottom: 0;
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding-bottom: 20px;
-    }
-    /* Media so'rovlar yordamida tugmani turli ekran o'lchamlariga moslashtirish */
-    @media (max-width: 768px) {
-        #mqttButton {
-            padding: 15px 20px;
-            font-size: 14px;
+        .front {
+            display: block;
+            position: relative;
+            border-radius: 8px;
+            background: hsl(248, 53%, 58%);
+            padding: 16px 32px;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+            Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 1rem;
+            transform: translateY(-4px);
+            transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
         }
-    }
-*{
-    margin: 0;
-    padding: 0;
+
+        .pushable:hover {
+            filter: brightness(110%);
+        }
+
+        #mqttButton {
+            padding: 20px 30px;
+            font-size: 20px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #mqttButton:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
+        }
+        .row{
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 20px;
+        }
+        /* Media so'rovlar yordamida tugmani turli ekran o'lchamlariga moslashtirish */
+        @media (max-width: 768px) {
+            #mqttButton {
+                padding: 15px 20px;
+                font-size: 14px;
+            }
+        }
+        *{
+            margin: 0;
+            padding: 0;
 
 
-}
+        }
 
-      body ,.row {
-          /*border-top: 50px solid blue;*/
-          /*border: 50px solid blue;*/
-          overflow: hidden;
+        body ,.row {
+            /*border-top: 50px solid blue;*/
+            /*border: 50px solid blue;*/
+            overflow: hidden;
 
         }
 
@@ -205,67 +205,90 @@
 {{--</form>--}}
 <main>
 
-<section>
+    <section>
 
-    <form id="mqttForm" class="">
+        <form id="mqttForm"  action="{{route('connect_send')}}" method="post">
 
-        @csrf
-        <button type="button"  class="front" id="mqttButton">Open</button>
-    </form>
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Siz',
-                text: '{{ session('success') }}'
-            });
-        </script>
-    @endif
-
-    <nav class="nav">
-        <a href="{{route('button')}}" class="nav__link {{ request()->routeIs('button') ? 'nav__link--active' : '' }}">
-            <i class="material-icons nav__icon">lock</i>
-            <span class="nav__text">Home</span>
-        </a>
-        <a href="{{route('profile.edit')}}" class="nav__link {{ request()->routeIs('profile.edit') ? 'nav__link--active' : '' }}">
-            <i class="material-icons ">person</i>
-            <span class="nav__text">Profile</span>
-        </a>
-
-
-        <a href="{{ route('logout') }}" class="nav__link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="material-icons">exit_to_app</i>
-            <span class="nav__text">Logout</span>
-        </a>
-
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
+            <button type="submit"  class="front" id="mqttButton">Open</button>
         </form>
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Siz',
+                    text: '{{ session('success') }}'
+                });
+            </script>
+        @endif
+        @if (session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Siz',
+                    text: '{{ session('error') }}'
+                });
+            </script>
+        @endif
+        <nav class="nav">
+            <a href="{{route('button')}}" class="nav__link {{ request()->routeIs('button') ? 'nav__link--active' : '' }}">
+                <i class="material-icons nav__icon">lock</i>
+                <span class="nav__text">Home</span>
+            </a>
+            <a href="{{route('profile.edit')}}" class="nav__link {{ request()->routeIs('profile.edit') ? 'nav__link--active' : '' }}">
+                <i class="material-icons ">person</i>
+                <span class="nav__text">Profile</span>
+            </a>
 
-    </nav>
 
-</section>
+            <a href="{{ route('logout') }}" class="nav__link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="material-icons">exit_to_app</i>
+                <span class="nav__text">Logout</span>
+            </a>
 
-{{--..--}}
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+
+        </nav>
+
+    </section>
+
+    {{--..--}}
 
 
 
 </main>
 
 <script>
-
     $(document).ready(function() {
+        var intervalId; // Interval ID uchun o'zgaruvchi
+        var buttonClicked = false; // Tugma bosilganligini kuzatish uchun o'zgaruvchi
+
         $('#mqttButton').on('click', function() {
+            if (buttonClicked) return; // Agar tugma allaqachon bosilgan bo'lsa, hech narsa qilmaydi
+
+            buttonClicked = true; // Tugma bosilganligini belgilash
+
+            // Xabar '1'ni MQTT ga yuborish
             $.ajax({
-                url: '{{ route('connect_send') }}',
-                type: 'GET',
+                url: '{{ route('connect_send') }}', // Laravel route for sending message '1'
+                type: 'POST',
+                data: $('#mqttForm').serialize(),
                 success: function(data) {
-                  // console.log(data[0] === "success");
                     Swal.fire({
-                        icon: data['status'] === 'success' ? 'success' : 'error',
-                        title: data['status'] === 'success' ? 'Muvaffaqiyatli' : 'Kechirasiz',
-                        text: data['message']
+                        icon: data.status === 'success' ? 'success' : 'error',
+                        title: data.status === 'success' ? 'Muvaffaqiyatli' : 'Kechirasiz',
+                        text: data.message
                     });
+
+                    // Agar interval allaqachon mavjud bo'lsa, uni tozalash
+                    if (intervalId) clearInterval(intervalId);
+
+                    // 30 soniya ichida '0' xabarini yuborish
+                    setTimeout(function() {
+                        sendZeroMessage();
+                    }, 30000); // 30 soniya = 30000 milisaniye
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     Swal.fire({
@@ -273,45 +296,19 @@
                         title: 'Kechirasiz',
                         text: 'So\'rov amalga oshirilmadi: ' + errorThrown
                     });
-                }
-            });
-        });
-    });
-    $(document).ready(function() {
-        var intervalId; // Aralık kimliği için değişken
-
-        // Düğmeye tıklandığında
-        $('#mqttButton').click(function() {
-            // Xabar '1'ni MQTT ga yuborish
-            $.ajax({
-                url: "{{ route('connect_send') }}", // Laravel route for sending message '1'
-                type: "GET",
-                data: $('#mqttForm').serialize(),
-                success: function(response) {
-                    // console.log(response); // Controllerdan gelen yanıtı konsola yazdırma
-
-                    // Daha önce başlatılmış bir aralık varsa, önceki aralığı temizle
-                    if (intervalId) clearInterval(intervalId);
-
-                    // 30 saniye sonra bir '0' mesajı gönder
-                    intervalId = setInterval(function() {
-                        sendZeroMessage();
-                    }, 30000); // 30 saniye = 30000 milisaniye
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
+                    buttonClicked = false; // Xatolik yuz berganda tugma holatini qaytarish
                 }
             });
         });
 
-        // '0' mesajı gönderme fonksiyonu
+        // '0' xabarini yuborish funksiyasi
         function sendZeroMessage() {
             $.ajax({
                 url: "{{ route('send.zero.message') }}", // Laravel route for sending message '0'
                 type: "GET",
                 data: $('#mqttForm').serialize(),
                 success: function(response) {
-                    console.log(response); // Controllerdan gelen yanıtı konsola yazdırma
+                    console.log(response); // Controllerdan kelgan javobni konsolga yozish
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);
@@ -319,6 +316,105 @@
             });
         }
     });
+
+    // document.getElementById('mqttForm').addEventListener('submit', function(event) {
+    //     event.preventDefault(); // Prevent the default form submission
+    //
+    //     // Get the form element
+    //     const form = event.target;
+    //
+    //     // Create a FormData object from the form
+    //     const formData = new FormData(form);
+    //
+    //     // Send the form data using fetch
+    //     fetch(form.action, {
+    //         method: 'GET',
+    //         body: formData
+    //     }).then(response => {
+    //         if (response.ok) {
+    //             console.log('Form submitted successfully');
+    //
+    //             // Set a timeout to send a GET request to the MQTT route after 30 seconds
+    //             setTimeout(sendZeroMessage, 30000); // 30000 milliseconds = 30 seconds
+    //         } else {
+    //             console.error('Form submission failed');
+    //         }
+    //     }).catch(error => {
+    //         console.error('Error:', error);
+    //     });
+    // });
+    //
+    // function sendZeroMessage() {
+    //     fetch('send.zero.message')
+    //         .then(response => response.text())
+    //         .then(data => console.log('Success:', data))
+    //         .catch(error => console.error('Error:', error));
+    // }
+    {{--$(document).ready(function() {--}}
+    {{--    $('#mqttButton').on('click', function() {--}}
+    {{--        $.ajax({--}}
+    {{--            url: '{{ route('connect_send') }}',--}}
+    {{--            type: 'GET',--}}
+    {{--            success: function(data) {--}}
+    {{--                // console.log(data[0] === "success");--}}
+    {{--                Swal.fire({--}}
+    {{--                    icon: data['status'] === 'success' ? 'success' : 'error',--}}
+    {{--                    title: data['status'] === 'success' ? 'Muvaffaqiyatli' : 'Kechirasiz',--}}
+    {{--                    text: data['message']--}}
+    {{--                });--}}
+    {{--            },--}}
+    {{--            error: function(jqXHR, textStatus, errorThrown) {--}}
+    {{--                Swal.fire({--}}
+    {{--                    icon: 'error',--}}
+    {{--                    title: 'Kechirasiz',--}}
+    {{--                    text: 'So\'rov amalga oshirilmadi: ' + errorThrown--}}
+    {{--                });--}}
+    {{--            }--}}
+    {{--        });--}}
+    {{--    });--}}
+    {{--});--}}
+    {{--$(document).ready(function() {--}}
+    {{--    var intervalId; // Aralık kimliği için değişken--}}
+
+    {{--    // Düğmeye tıklandığında--}}
+    {{--    $('#mqttButton').click(function() {--}}
+    {{--        // Xabar '1'ni MQTT ga yuborish--}}
+    {{--        $.ajax({--}}
+    {{--            url: "{{ route('connect_send') }}", // Laravel route for sending message '1'--}}
+    {{--            type: "GET",--}}
+    {{--            data: $('#mqttForm').serialize(),--}}
+    {{--            success: function(response) {--}}
+    {{--                // console.log(response); // Controllerdan gelen yanıtı konsola yazdırma--}}
+
+    {{--                // Daha önce başlatılmış bir aralık varsa, önceki aralığı temizle--}}
+    {{--                if (intervalId) clearInterval(intervalId);--}}
+
+    {{--                // 30 saniye sonra bir '0' mesajı gönder--}}
+    {{--                intervalId = setInterval(function() {--}}
+    {{--                    sendZeroMessage();--}}
+    {{--                }, 30000); // 30 saniye = 30000 milisaniye--}}
+    {{--            },--}}
+    {{--            error: function(xhr, status, error) {--}}
+    {{--                console.error(xhr.responseText);--}}
+    {{--            }--}}
+    {{--        });--}}
+    {{--    });--}}
+
+    {{--    // '0' mesajı gönderme fonksiyonu--}}
+    {{--    function sendZeroMessage() {--}}
+    {{--        $.ajax({--}}
+    {{--            url: "{{ route('send.zero.message') }}", // Laravel route for sending message '0'--}}
+    {{--            type: "GET",--}}
+    {{--            data: $('#mqttForm').serialize(),--}}
+    {{--            success: function(response) {--}}
+    {{--                console.log(response); // Controllerdan gelen yanıtı konsola yazdırma--}}
+    {{--            },--}}
+    {{--            error: function(xhr, status, error) {--}}
+    {{--                console.error(xhr.responseText);--}}
+    {{--            }--}}
+    {{--        });--}}
+    {{--    }--}}
+    {{--});--}}
     // Foydalanuvchi sahifani yuklagandan so'ng 30 sekund o'tgandan so'ng oturishni yakunlash
     {{--document.addEventListener('DOMContentLoaded', function() {--}}
     {{--    setTimeout(function() {--}}

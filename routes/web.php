@@ -58,9 +58,19 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
 
 
 //Route::get('/connect',[MqttController::class,'connected'])->middleware(['auth', 'verified'])->name('connect');
-Route::get('connect',[MqttController::class,'Connect'])->middleware(['auth', 'verified'])->name('connect_send');
+Route::post('connect',[MqttController::class,'Connect'])->middleware(['auth', 'verified'])->name('connect_send');
 Route::get('/send-zero-message', [MqttController::class, 'sendZeroMessage'])->name('send.zero.message');
-
+//Route::get('sun',function (){
+//    try {
+//        $mqtt = new Mqtt();
+//        $mqtt->ConnectAndPublish('Rahim121rus', '4', 'mqtt_citron', 'c1tr0nR&D');
+//                return response()->json(['status' => 'success', 'message' => 'Eshik ochildi!']);
+////        return redirect()->back()->with('success', 'Eshik ochildi!');
+//    } catch (\Exception $e) {
+//                return response()->json(['status' => 'error', 'message' => 'MQTT serveriga 1-xabar yuborilmadi: ' . $e->getMessage()]);
+////        return redirect()->back()->with('error', 'BOmay qoldi');
+//    }
+//});
 //Route::get('/logout', function(){
 //    Auth::logout(); // Foydalanuvchini tizimdan chiqarish
 //    return redirect('/login');
