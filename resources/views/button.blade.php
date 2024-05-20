@@ -216,7 +216,7 @@
             <script>
                 Swal.fire({
                     icon: 'success',
-                    title: 'Siz',
+                    title: 'Hush kelibsiz',
                     text: '{{ session('success') }}'
                 });
             </script>
@@ -241,7 +241,7 @@
             </a>
 
 
-            <a href="{{ route('logout') }}" class="nav__link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <a href="{{ route('logout') }}" class="nav__link"  id="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="material-icons">exit_to_app</i>
                 <span class="nav__text">Logout</span>
             </a>
@@ -261,6 +261,25 @@
 </main>
 
 <script>
+
+    $(docoment).on("click", "#logout", function(e) {
+        e.preventDefault();
+        var link = $(this).attr("href");
+        swal({
+            title: "Rosdanham chiqishni hohlaysizmi!",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dragerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = link;
+                } else {
+                    swal("Not Logout");
+                }
+            });
+    });
     {{--$(document).ready(function() {--}}
     {{--    var intervalId; // Interval ID uchun o'zgaruvchi--}}
     {{--    var buttonClicked = false; // Tugma bosilganligini kuzatish uchun o'zgaruvchi--}}
