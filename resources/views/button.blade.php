@@ -261,61 +261,61 @@
 </main>
 
 <script>
-    $(document).ready(function() {
-        var intervalId; // Interval ID uchun o'zgaruvchi
-        var buttonClicked = false; // Tugma bosilganligini kuzatish uchun o'zgaruvchi
+    {{--$(document).ready(function() {--}}
+    {{--    var intervalId; // Interval ID uchun o'zgaruvchi--}}
+    {{--    var buttonClicked = false; // Tugma bosilganligini kuzatish uchun o'zgaruvchi--}}
 
-        $('#mqttButton').on('click', function() {
-            if (buttonClicked) return; // Agar tugma allaqachon bosilgan bo'lsa, hech narsa qilmaydi
+    {{--    $('#mqttButton').on('click', function() {--}}
+    {{--        if (buttonClicked) return; // Agar tugma allaqachon bosilgan bo'lsa, hech narsa qilmaydi--}}
 
-            buttonClicked = true; // Tugma bosilganligini belgilash
+    {{--        buttonClicked = true; // Tugma bosilganligini belgilash--}}
 
-            // Xabar '1'ni MQTT ga yuborish
-            $.ajax({
-                url: '{{ route('connect_send') }}', // Laravel route for sending message '1'
-                type: 'POST',
-                data: $('#mqttForm').serialize(),
-                success: function(data) {
-                    Swal.fire({
-                        icon: data.status === 'success' ? 'success' : 'error',
-                        title: data.status === 'success' ? 'Muvaffaqiyatli' : 'Kechirasiz',
-                        text: data.message
-                    });
+    {{--        // Xabar '1'ni MQTT ga yuborish--}}
+    {{--        $.ajax({--}}
+    {{--            url: '{{ route('connect_send') }}', // Laravel route for sending message '1'--}}
+    {{--            type: 'POST',--}}
+    {{--            data: $('#mqttForm').serialize(),--}}
+    {{--            success: function(data) {--}}
+    {{--                Swal.fire({--}}
+    {{--                    icon: data.status === 'success' ? 'success' : 'error',--}}
+    {{--                    title: data.status === 'success' ? 'Muvaffaqiyatli' : 'Kechirasiz',--}}
+    {{--                    text: data.message--}}
+    {{--                });--}}
 
-                    // Agar interval allaqachon mavjud bo'lsa, uni tozalash
-                    if (intervalId) clearInterval(intervalId);
+    {{--                // Agar interval allaqachon mavjud bo'lsa, uni tozalash--}}
+    {{--                if (intervalId) clearInterval(intervalId);--}}
 
-                    // 30 soniya ichida '0' xabarini yuborish
-                    setTimeout(function() {
-                        sendZeroMessage();
-                    }, 30000); // 30 soniya = 30000 milisaniye
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Kechirasiz',
-                        text: 'So\'rov amalga oshirilmadi: ' + errorThrown
-                    });
-                    buttonClicked = false; // Xatolik yuz berganda tugma holatini qaytarish
-                }
-            });
-        });
+    {{--                // 30 soniya ichida '0' xabarini yuborish--}}
+    {{--                setTimeout(function() {--}}
+    {{--                    sendZeroMessage();--}}
+    {{--                }, 30000); // 30 soniya = 30000 milisaniye--}}
+    {{--            },--}}
+    {{--            error: function(jqXHR, textStatus, errorThrown) {--}}
+    {{--                Swal.fire({--}}
+    {{--                    icon: 'error',--}}
+    {{--                    title: 'Kechirasiz',--}}
+    {{--                    text: 'So\'rov amalga oshirilmadi: ' + errorThrown--}}
+    {{--                });--}}
+    {{--                buttonClicked = false; // Xatolik yuz berganda tugma holatini qaytarish--}}
+    {{--            }--}}
+    {{--        });--}}
+    {{--    });--}}
 
-        // '0' xabarini yuborish funksiyasi
-        function sendZeroMessage() {
-            $.ajax({
-                url: "{{ route('send.zero.message') }}", // Laravel route for sending message '0'
-                type: "GET",
-                data: $('#mqttForm').serialize(),
-                success: function(response) {
-                    console.log(response); // Controllerdan kelgan javobni konsolga yozish
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        }
-    });
+    {{--    // '0' xabarini yuborish funksiyasi--}}
+    {{--    function sendZeroMessage() {--}}
+    {{--        $.ajax({--}}
+    {{--            url: "{{ route('send.zero.message') }}", // Laravel route for sending message '0'--}}
+    {{--            type: "GET",--}}
+    {{--            data: $('#mqttForm').serialize(),--}}
+    {{--            success: function(response) {--}}
+    {{--                console.log(response); // Controllerdan kelgan javobni konsolga yozish--}}
+    {{--            },--}}
+    {{--            error: function(xhr, status, error) {--}}
+    {{--                console.error(xhr.responseText);--}}
+    {{--            }--}}
+    {{--        });--}}
+    {{--    }--}}
+    {{--});--}}
 
     // document.getElementById('mqttForm').addEventListener('submit', function(event) {
     //     event.preventDefault(); // Prevent the default form submission
